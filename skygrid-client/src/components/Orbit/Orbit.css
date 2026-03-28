@@ -1,0 +1,92 @@
+.orbit-section {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  padding: 5rem 2rem;
+}
+
+.orbit-visual {
+  position: relative;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbit-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.15);
+}
+
+.orbit-ring.r1 { width: 120px; height: 120px; border-color: rgba(0,212,255,0.3); animation: spin 8s linear infinite; }
+.orbit-ring.r2 { width: 200px; height: 200px; animation: spin 14s linear infinite reverse; }
+.orbit-ring.r3 { width: 290px; height: 290px; animation: spin 22s linear infinite; }
+.orbit-ring.r4 { width: 340px; height: 340px; border-color: rgba(0,212,255,0.05); }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.orbit-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  top: -4px;
+  left: 50%;
+  margin-left: -4px;
+}
+
+.d1 { background: #00d4ff; box-shadow: 0 0 8px #00d4ff; }
+.d2 { background: #00ff88; box-shadow: 0 0 8px #00ff88; }
+.d3 { background: #ff6b35; box-shadow: 0 0 8px #ff6b35; }
+
+.orbit-center {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #1a3060, #0a1428);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+  z-index: 1;
+}
+
+.orbit-info h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+
+.orbit-info p {
+  color: var(--txt2);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--acc);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  padding: 0.3rem 0.75rem;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 700px) {
+  .orbit-section { grid-template-columns: 1fr; }
+}

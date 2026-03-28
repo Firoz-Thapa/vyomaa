@@ -1,0 +1,26 @@
+.footer {
+  position: relative;
+  z-index: 1;
+  padding: 2rem 2.5rem;
+  border-top: 1px solid rgba(0, 212, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--acc);
+  letter-spacing: 3px;
+}
+
+.footer-txt {
+  color: var(--txt2);
+  font-size: 0.75rem;
+  font-family: var(--mono);
+}
+
+@media (max-width: 700px) {
+  .footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+}

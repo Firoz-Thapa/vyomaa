@@ -1,11 +1,5 @@
-// import { useState, useEffect } from 'react';
+import LandingPage from "./pages/LandingPage"
 
-const page = () => {
-    return (
-        <div>
-            <h1>Page loading</h1>
-        </div>
-    )
+export default function App() {
+    return <LandingPage />
 }
-
-export default page
