@@ -1,0 +1,109 @@
+.starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+}
+
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--acc2);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero-tag::before,
+.hero-tag::after {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: var(--acc2);
+  opacity: 0.5;
+}
+
+.hero h1 {
+  font-family: var(--title);
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -1px;
+  margin-bottom: 1.5rem;
+}
+
+.line1 { display: block; color: var(--txt); }
+.line2 {
+  display: block;
+  color: var(--acc);
+  text-shadow: 0 0 40px rgba(0, 212, 255, 0.4);
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--txt2);
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+  letter-spacing: 0.3px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-primary {
+  background: var(--acc);
+  color: var(--c1);
+  padding: 0.9rem 2.5rem;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  transition: all 0.3s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+.btn-primary:hover {
+  background: var(--acc2);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--txt2);
+  color: var(--txt2);
+  padding: 0.9rem 2.5rem;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--acc);
+  color: var(--acc);
+}
