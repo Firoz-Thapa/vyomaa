@@ -2,6 +2,8 @@ import Navbar from '../components/Navbar/Navbar';
 import Hero from '../components/Hero/Hero';
 import Stats from '../components/Stats/Stats';
 import Features from '../components/Features/Features';
+import About from '../components/About/About';
+import Testimonials from '../components/Testimonials/Testimonials';
 import Orbit from '../components/Orbit/Orbit';
 import Terminal from '../components/Terminal/Terminal';
 import CTA from '../components/CTA/CTA';
@@ -15,6 +17,8 @@ export default function LandingPage() {
       <Hero />
       <Stats />
       <Features />
+      <About />
+      <Testimonials />
       <Orbit />
       <Terminal />
       <CTA />

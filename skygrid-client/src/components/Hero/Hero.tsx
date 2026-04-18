@@ -14,8 +14,10 @@ export default function Hero() {
           <span className="line2">Orbit.</span>
         </h1>
         <p className="hero-sub">
-          Ground station dashboard for real-time satellite tracking, pass prediction,
-          and orbital telemetry. Built for engineers, researchers, and space enthusiasts.
+          Comprehensive ground station dashboard providing real-time satellite tracking, precise pass predictions,
+          and advanced orbital telemetry. Powered by SGP4 algorithms and CelesTrak data, SkyGrid delivers mission-critical
+          intelligence for engineers, researchers, and space operations teams worldwide. Monitor over 8,000 active satellites
+          with sub-second accuracy and automated alerting systems.
         </p>
         <div className="hero-actions">
           <button className="btn-primary">Open Dashboard</button>
