@@ -8,20 +8,15 @@ Log.Logger = new LoggerConfiguration()
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Serilog
 builder.Host.UseSerilog();
 
-// Controllers
 builder.Services.AddControllers();
 
-// Swagger
 builder.Services.AddOpenApi();
 
-// PostgreSQL + EF Core
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// CORS (for React frontend)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReact", policy =>
@@ -30,7 +25,6 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod());
 });
 
-// HttpClient (for CelesTrak)
 builder.Services.AddHttpClient();
 
 var app = builder.Build();

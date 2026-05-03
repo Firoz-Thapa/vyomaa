@@ -8,6 +8,5 @@ public class User
     public string FirstName { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    // Navigation
     public ICollection<Location> Locations { get; set; } = new List<Location>();
 }

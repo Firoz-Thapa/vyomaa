@@ -30,7 +30,6 @@ public class AppDbContext : DbContext
             .WithMany(l => l.Passes)
             .HasForeignKey(p => p.LocationId);
 
-        // Location → User
         modelBuilder.Entity<Location>()
             .HasOne(l => l.User)
             .WithMany(u => u.Locations)

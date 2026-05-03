@@ -9,11 +9,10 @@ public class Satellite
     public int NoradId { get; set; }
     public string TleLine1 { get; set; } = string.Empty;
     public string TleLine2 { get; set; } = string.Empty;
-    public string Category { get; set; } = string.Empty; // e.g. "stations", "weather"
+    public string Category { get; set; } = string.Empty;
     public bool IsActive { get; set; } = true;
     public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
 
-    // Navigation
     public ICollection<Pass> Passes { get; set; } = new List<Pass>();
 }
 
