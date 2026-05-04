@@ -90,3 +90,171 @@
 @media (max-width: 700px) {
   .orbit-section { grid-template-columns: 1fr; }
 }
+
+/* Satellite Tracking Section */
+.satellite-tracking {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 212, 255, 0.15);
+}
+
+.satellite-tracking h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #00d4ff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.error-message {
+  background: rgba(255, 107, 53, 0.1);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  color: #ff6b35;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.loading-message {
+  color: var(--txt2);
+  font-style: italic;
+  padding: 1rem 0;
+}
+
+.tracking-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat {
+  background: rgba(0, 212, 255, 0.05);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--txt2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-right: 0.5rem;
+}
+
+.stat-value {
+  font-family: var(--mono);
+  color: #00d4ff;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.satellites-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.satellites-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.satellites-list::-webkit-scrollbar-track {
+  background: rgba(0, 212, 255, 0.05);
+  border-radius: 3px;
+}
+
+.satellites-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.2);
+  border-radius: 3px;
+}
+
+.satellites-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 212, 255, 0.3);
+}
+
+.satellite-item {
+  background: rgba(0, 212, 255, 0.03);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.satellite-item:hover {
+  background: rgba(0, 212, 255, 0.08);
+  border-color: rgba(0, 212, 255, 0.3);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.1);
+}
+
+.satellite-name {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: #00ff88;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.satellite-coords {
+  font-size: 0.75rem;
+  color: var(--txt2);
+  margin-bottom: 0.4rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.coord-label {
+  color: rgba(0, 212, 255, 0.6);
+  font-weight: 600;
+}
+
+.satellite-info {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: var(--txt2);
+}
+
+.satellite-info .alt,
+.satellite-info .velocity {
+  font-family: var(--mono);
+}
+
+.satellite-info .alt {
+  color: rgba(255, 107, 53, 0.8);
+}
+
+.satellite-info .velocity {
+  color: rgba(0, 255, 136, 0.8);
+}
+
+.more-satellites {
+  color: var(--txt2);
+  font-size: 0.85rem;
+  font-style: italic;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+.refresh-info {
+  color: var(--txt2);
+  font-size: 0.75rem;
+  text-align: right;
+  margin-top: 1rem;
+  opacity: 0.7;
+}
