@@ -10,6 +10,12 @@ node_modules/
 dist/
 .env
 .env.local
+**/.env
+**/.env.local
+
+# Local secrets
+appsettings.Local.json
+appsettings.*.Local.json
 
 # General
 .DS_Store
