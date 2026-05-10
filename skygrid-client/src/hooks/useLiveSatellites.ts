@@ -1,7 +1,3 @@
-/**
- * useLiveSatellites Hook - Manage live satellite tracking with separate TLE and propagation intervals
- */
-
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { TLEData } from '../services/celestrakService';
 import { fetchSatelliteGroup, type FetchError } from '../services/celestrakService';
@@ -23,10 +19,6 @@ export interface UseLiveSatellitesResult {
   lastTleRefresh: Date | null;
 }
 
-/**
- * React hook for live satellite tracking
- * Manages TLE data fetching and position propagation on separate intervals
- */
 export function useLiveSatellites(
   options: UseLiveSatellitesOptions,
 ): UseLiveSatellitesResult {
@@ -42,14 +34,10 @@ export function useLiveSatellites(
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
   const [lastTleRefresh, setLastTleRefresh] = useState<Date | null>(null);
 
-  // Use refs to store current TLE data (needed for propagation interval)
   const tleDataRef = useRef<TLEData[]>([]);
   const tleRefreshIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const propagationIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  /**
-   * Fetch TLE data from CelesTrak
-   */
   const refreshTleData = useCallback(async (): Promise<void> => {
     try {
       setError(null);
@@ -57,7 +45,6 @@ export function useLiveSatellites(
       tleDataRef.current = data;
       setLastTleRefresh(new Date());
 
-      // Trigger immediate propagation with new TLE data
       const now = new Date();
       const newPositions = propagateAll(data, now);
       setPositions(newPositions);
@@ -75,9 +62,6 @@ export function useLiveSatellites(
     }
   }, [group]);
 
-  /**
-   * Propagate current positions
-   */
   const propagatePositions = useCallback((): void => {
     if (tleDataRef.current.length === 0) {
       return;
@@ -99,9 +83,6 @@ export function useLiveSatellites(
     }
   }, []);
 
-  /**
-   * Initial TLE fetch on mount
-   */
   useEffect(() => {
     let isMounted = true;
 
@@ -123,9 +104,6 @@ export function useLiveSatellites(
     };
   }, [group, refreshTleData]);
 
-  /**
-   * Setup periodic TLE refresh interval
-   */
   useEffect(() => {
     tleRefreshIntervalRef.current = setInterval(() => {
       refreshTleData();
@@ -138,11 +116,7 @@ export function useLiveSatellites(
     };
   }, [refreshTleAfterMs, refreshTleData]);
 
-  /**
-   * Setup periodic position propagation interval
-   */
   useEffect(() => {
-    // Perform initial propagation immediately
     propagatePositions();
 
     propagationIntervalRef.current = setInterval(() => {
@@ -156,9 +130,6 @@ export function useLiveSatellites(
     };
   }, [updateIntervalMs, propagatePositions]);
 
-  /**
-   * Cleanup intervals on unmount
-   */
   useEffect(() => {
     return () => {
       if (tleRefreshIntervalRef.current !== null) {

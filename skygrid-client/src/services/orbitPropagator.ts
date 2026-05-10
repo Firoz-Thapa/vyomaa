@@ -1,8 +1,3 @@
-/**
- * Orbit Propagator - Use satellite.js to compute satellite positions
- * This module handles SGP4 propagation of orbits
- */
-
 import * as satellite from 'satellite.js';
 import type { TLEData } from './celestrakService';
 import { buildTleLines } from './tleBuilder';
@@ -35,10 +30,8 @@ export function propagateSatellite(
   try {
     const tleLines = buildTleLines(tle);
 
-    // Parse TLE lines into satellite.js format
     const satrec = satellite.twoline2satrec(tleLines.line1, tleLines.line2);
 
-    // Check for parsing errors
     if (satrec.error !== 0) {
       console.warn(
         `Failed to parse TLE for ${tle.OBJECT_NAME}: error code ${satrec.error}`,
@@ -46,13 +39,11 @@ export function propagateSatellite(
       return null;
     }
 
-    // Propagate to the target time using SGP4
     const positionAndVelocity: PositionAndVelocity | null = satellite.propagate(
       satrec,
       date,
     );
 
-    // Check for propagation errors
     if (positionAndVelocity === null || positionAndVelocity.position === null) {
       console.warn(`SGP4 propagation error for ${tle.OBJECT_NAME}`);
       return null;
@@ -65,7 +56,6 @@ export function propagateSatellite(
       return null;
     }
 
-    // Calculate velocity magnitude in km/s
     const velocityMagnitude = Math.sqrt(
       (velocity?.x ?? 0) ** 2 + (velocity?.y ?? 0) ** 2 + (velocity?.z ?? 0) ** 2,
     );
@@ -135,7 +125,6 @@ export function propagateVisible(
     const deltaLat = position.lat - observerLat;
     const deltaLng = position.lng - observerLng;
 
-    // Simple elevation angle approximation (Pythagorean distance in degrees)
     const distanceDegrees = Math.sqrt(deltaLat ** 2 + deltaLng ** 2);
     const elevationAngle = 90 - distanceDegrees; // Rough approximation
 

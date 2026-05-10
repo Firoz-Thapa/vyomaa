@@ -1,8 +1,3 @@
-/**
- * TLE Builder - Convert CelesTrak JSON to TLE line strings
- * satellite.js expects TLE data in the classic two-line format from NORAD
- */
-
 import type { TLEData } from './celestrakService';
 
 export interface TLELines {
@@ -28,9 +23,6 @@ function epochToDate(epochStr: string): Date {
   return date;
 }
 
-/**
- * Calculate checksum for TLE line (mod 10 of sum of digits)
- */
 function calculateChecksum(line: string): number {
   let sum = 0;
   for (const char of line) {
@@ -43,10 +35,6 @@ function calculateChecksum(line: string): number {
   return sum % 10;
 }
 
-/**
- * Build TLE Line 1 from CelesTrak TLEData
- * Format: 1 NNNNNX NNNNNAAA NNNNN NNN NNNNN.NNNNNNNN  .NNNNNNNN  NNNNN-N NNNNN-N N NNNNN
- */
 export function buildTleLine1(tle: TLEData): string {
   // Extract satellite number (last 5 digits of NORAD_CAT_ID)
   const satNum = String(tle.NORAD_CAT_ID).padStart(5, ' ');
@@ -55,8 +43,6 @@ export function buildTleLine1(tle: TLEData): string {
   const classification =
     tle.CLASSIFICATION_TYPE === 'U' ? 'U' : 'U'; // Default to unclassified
 
-  // International designation (YYNNNAAA format) - derived from OBJECT_ID
-  // Format is like "1998-067A", we need "98067A"
   const objectIdParts = tle.OBJECT_ID.match(/(\d{4})-(\d{3})([A-Z])/);
   let intlDes = '00001A';
   if (objectIdParts) {
@@ -66,7 +52,6 @@ export function buildTleLine1(tle: TLEData): string {
     intlDes = `${year}${launch}${piece}`;
   }
 
-  // Epoch year and day of year
   const epochDate = epochToDate(tle.EPOCH);
   const epochYear = String(epochDate.getFullYear()).substring(2);
   const dayOfYear = Math.floor(
@@ -83,46 +68,36 @@ export function buildTleLine1(tle: TLEData): string {
     .substring(0, 8)
     .padEnd(8, '0');
 
-  // First derivative of mean motion (decay rate)
   const meanMotionDot = tle.MEAN_MOTION_DOT;
   const meanMotionDotStr = meanMotionDot >= 0 ? ' ' : '';
   const meanMotionDotFormatted = String(Math.abs(meanMotionDot) * 100000)
     .substring(0, 5)
     .padStart(5, '0');
 
-  // Second derivative of mean motion (rarely used, usually 0)
   const meanMotionDdot = tle.MEAN_MOTION_DDOT;
   const meanMotionDdotSign = meanMotionDdot >= 0 ? '+' : '-';
   const meanMotionDdotExponent = String(Math.abs(meanMotionDdot) * 10000000)
     .substring(0, 5)
     .padStart(5, '0');
 
-  // B* drag term
   const bstar = tle.BSTAR;
   const bstarSign = bstar >= 0 ? '+' : '';
   const bstarMantissa = String(Math.abs(bstar) * 1000000)
     .substring(0, 5)
     .padStart(5, '0');
 
-  // Element set number
   const elementSetNo = String(tle.ELEMENT_SET_NO)
     .padStart(4, ' ')
     .substring(0, 4);
 
-  // Build line 1 without checksum
   let line1 = `1 ${satNum}${classification} ${intlDes} ${epochYear}${epochDay} ${meanMotionDotStr}${meanMotionDotFormatted} ${meanMotionDdotSign}${meanMotionDdotExponent}-${bstarSign}${bstarMantissa} 0 ${elementSetNo}`;
 
-  // Calculate and append checksum
   const checksum1 = calculateChecksum(line1);
   line1 += checksum1;
 
   return line1;
 }
 
-/**
- * Build TLE Line 2 from CelesTrak TLEData
- * Format: 2 NNNNN NNN.NNNN NNN.NNNN NNNNNNN NNN.NNNN NNN.NNNN NN.NNNNNNNNNNNNNN NNNNN
- */
 export function buildTleLine2(tle: TLEData): string {
   const satNum = String(tle.NORAD_CAT_ID).padStart(5, ' ');
   const inclination = String(tle.INCLINATION).padStart(8, ' ').substring(0, 8);
@@ -145,19 +120,14 @@ export function buildTleLine2(tle: TLEData): string {
     .padStart(5, ' ')
     .substring(0, 5);
 
-  // Build line 2 without checksum
   let line2 = `2 ${satNum} ${inclination} ${raOfAscNode} ${eccentricity} ${argOfPericenter} ${meanAnomaly} ${meanMotion}${revAtEpoch}`;
 
-  // Calculate and append checksum
   const checksum2 = calculateChecksum(line2);
   line2 += checksum2;
 
   return line2;
 }
 
-/**
- * Convert TLE data to satellite.js compatible TLE lines
- */
 export function buildTleLines(tle: TLEData): TLELines {
   return {
     line1: buildTleLine1(tle),
