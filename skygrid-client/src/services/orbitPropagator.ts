@@ -70,12 +70,18 @@ export function propagateSatellite(
       (velocity?.x ?? 0) ** 2 + (velocity?.y ?? 0) ** 2 + (velocity?.z ?? 0) ** 2,
     );
 
+    const gmst = satellite.gstime(date);
+    const geo = satellite.eciToGeodetic(position, gmst);
+    const lat = satellite.degreesLat(geo.latitude);
+    const lng = satellite.degreesLong(geo.longitude);
+    const alt = geo.height;
+
     return {
       id: String(tle.NORAD_CAT_ID),
       name: tle.OBJECT_NAME,
-      lat: position.y,
-      lng: position.x,
-      alt: position.z,
+      lat,
+      lng,
+      alt,
       velocity: velocityMagnitude,
     };
   } catch (error) {
