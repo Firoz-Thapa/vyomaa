@@ -1,5 +1,6 @@
 import React from 'react';
 import './Orbit.css';
+import GlobeCanvas from './GlobeCanvas';
 import { useLiveSatellites } from '../../hooks/useLiveSatellites';
 
 const TECH_TAGS = [
@@ -60,17 +61,7 @@ export default function Orbit(): React.JSX.Element {
   return (
     <div className="orbit-section">
       <div className="orbit-visual">
-        <div className="orbit-ring r4" />
-        <div className="orbit-ring r3">
-          <div className="orbit-dot d3" />
-        </div>
-        <div className="orbit-ring r2">
-          <div className="orbit-dot d2" />
-        </div>
-        <div className="orbit-ring r1">
-          <div className="orbit-dot d1" />
-        </div>
-        <div className="orbit-center" />
+        <GlobeCanvas positions={positions} />
       </div>
       <div className="orbit-info">
         <div className="section-tag">Technology</div>

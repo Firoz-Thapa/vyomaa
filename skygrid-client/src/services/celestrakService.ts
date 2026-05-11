@@ -1,8 +1,3 @@
-/**
- * CelesTrak Service - Fetch TLE data from CelesTrak's GP JSON API
- * No types package exists for satellite.js, so we define our own interfaces
- */
-
 export interface TLEData {
   OBJECT_NAME: string;
   NORAD_CAT_ID: number;
@@ -27,9 +22,6 @@ export interface FetchError extends Error {
   url: string;
 }
 
-/**
- * Mock TLE data for development/testing when API is unavailable
- */
 function getMockTLEData(group: string): TLEData[] {
   const now = new Date();
   const year = now.getUTCFullYear();
@@ -38,7 +30,6 @@ function getMockTLEData(group: string): TLEData[] {
   );
   const epochStr = `${year}${String(dayOfYear).padStart(3, '0')}.${String(now.getUTCHours()).padStart(2, '0')}`;
 
-  // Mock Starlink satellites
   if (group.toLowerCase() === 'starlink') {
     return Array.from({ length: 50 }, (_, i) => ({
       OBJECT_NAME: `STARLINK-${1000 + i}`,
@@ -60,7 +51,6 @@ function getMockTLEData(group: string): TLEData[] {
     }));
   }
 
-  // Mock active satellites
   return Array.from({ length: 20 }, (_, i) => ({
     OBJECT_NAME: `SAT-${i}`,
     NORAD_CAT_ID: 25000 + i,
@@ -88,7 +78,6 @@ function getMockTLEData(group: string): TLEData[] {
  * @returns Promise<TLEData[]> - Array of TLE data objects
  */
 export async function fetchSatelliteGroup(group: string): Promise<TLEData[]> {
-  // Try multiple API endpoints in order of preference
   const endpoints = [
     `https://api.celestrak.org/group/${group}.json`,
     `https://celestrak.com/NORAD/elements/${group}.json`,
@@ -138,7 +127,6 @@ export async function fetchSatelliteGroup(group: string): Promise<TLEData[]> {
     }
   }
 
-  // If all endpoints fail, log warning and return mock data
   console.warn(
     `CelesTrak API unavailable (${lastError?.message}). Using mock satellite data for development.`,
   );
