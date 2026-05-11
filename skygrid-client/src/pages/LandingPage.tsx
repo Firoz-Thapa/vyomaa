@@ -5,6 +5,7 @@ import Features from '../components/Features/Features';
 import About from '../components/About/About';
 import Orbit from '../components/Orbit/Orbit';
 import Terminal from '../components/Terminal/Terminal';
+import Docs from '../components/Docs/Docs';
 import CTA from '../components/CTA/CTA';
 import Footer from '../components/Footer/Footer';
 
@@ -19,6 +20,7 @@ export default function LandingPage() {
       <About />
       <Orbit />
       <Terminal />
+      <Docs />
       <CTA />
       <Footer />
     </>
