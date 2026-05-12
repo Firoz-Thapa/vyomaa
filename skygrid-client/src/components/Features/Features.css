@@ -3,6 +3,7 @@
   z-index: 1;
   background: var(--c2);
   padding: 5rem 2rem;
+  scroll-margin-top: 86px;
 }
 
 .features-inner {
