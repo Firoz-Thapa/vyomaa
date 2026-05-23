@@ -93,6 +93,9 @@
 }
 
 .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: transparent;
   border: 1px solid var(--txt2);
   color: var(--txt2);
@@ -100,6 +103,7 @@
   font-size: 0.85rem;
   letter-spacing: 2px;
   text-transform: uppercase;
+  text-decoration: none;
   transition: all 0.3s;
 }
 

@@ -59,7 +59,7 @@ export default function Orbit(): React.JSX.Element {
   const hiddenCount = Math.max(0, positions.length - displayLimit);
 
   return (
-    <div className="orbit-section">
+    <section className="orbit-section" id="satellites">
       <div className="orbit-visual">
         <GlobeCanvas positions={positions} />
       </div>
@@ -132,6 +132,6 @@ export default function Orbit(): React.JSX.Element {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

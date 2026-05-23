@@ -21,7 +21,7 @@ export default function Hero() {
         </p>
         <div className="hero-actions">
           <button className="btn-primary">Open Dashboard</button>
-          <button className="btn-ghost">View API Docs</button>
+          <a className="btn-ghost" href="#docs">View API Docs</a>
         </div>
       </section>
     </>
