@@ -15,6 +15,7 @@ interface SatelliteItemProps {
   lng: number;
   alt: number;
   velocity: number;
+  highlighted?: boolean;
 }
 
 function SatelliteItem({
@@ -24,17 +25,26 @@ function SatelliteItem({
   lng,
   alt,
   velocity,
+  highlighted = false,
 }: SatelliteItemProps): React.JSX.Element {
   return (
-    <div className="satellite-item" title={`ID: ${id}`}>
-      <div className="satellite-name">{name}</div>
-      <div className="satellite-coords">
-        <span className="coord-label">Lat:</span> {lat.toFixed(2)}°
-        <span className="coord-label">Lng:</span> {lng.toFixed(2)}°
+    <div
+      className={`satellite-item${highlighted ? ' highlighted' : ''}`}
+      title={`ID: ${id}`}
+    >
+      <div className="satellite-main">
+        <span className="satellite-dot" aria-hidden="true" />
+        <div className="satellite-copy">
+          <div className="satellite-name">{name}</div>
+          <div className="satellite-meta">
+            {lat.toFixed(2)}°, {lng.toFixed(2)}°
+          </div>
+        </div>
       </div>
+
       <div className="satellite-info">
-        <span className="alt">Alt: {alt.toFixed(0)} km</span>
-        <span className="velocity">V: {velocity.toFixed(2)} km/s</span>
+        <span className="pill">Alt: {alt.toFixed(0)} km</span>
+        <span className="pill subtle">V: {velocity.toFixed(2)} km/s</span>
       </div>
     </div>
   );
@@ -54,9 +64,11 @@ export default function Orbit(): React.JSX.Element {
     refreshTleAfterMs: 3600000,
   });
 
-  const displayLimit = 10;
+  const displayLimit = 6;
   const visiblePositions = positions.slice(0, displayLimit);
   const hiddenCount = Math.max(0, positions.length - displayLimit);
+
+  const activeSatellite = visiblePositions[0];
 
   return (
     <section className="orbit-section" id="satellites">
@@ -82,9 +94,16 @@ export default function Orbit(): React.JSX.Element {
           ))}
         </div>
 
-        {/* Live Satellite Tracking Section */}
         <div className="satellite-tracking">
-          <h3>Live Satellite Tracking (Starlink)</h3>
+          <div className="tracking-header">
+            <div className="tracking-title-group">
+              <span className="tracking-badge">Live tracking</span>
+              <h3>Starlink coverage</h3>
+            </div>
+            <button type="button" className="tracking-action">
+              Create sub-issue
+            </button>
+          </div>
 
           {error && <div className="error-message">⚠️ {error}</div>}
 
@@ -92,40 +111,52 @@ export default function Orbit(): React.JSX.Element {
             <div className="loading-message">Loading satellite data...</div>
           ) : (
             <>
-              <div className="tracking-stats">
-                <div className="stat">
-                  <span className="stat-label">Visible:</span>
-                  <span className="stat-value">{positions.length}</span>
+              <div className="tracking-summary">
+                <div className="summary-card">
+                  <span className="summary-label">Visible</span>
+                  <strong>{positions.length}</strong>
                 </div>
-                <div className="stat">
-                  <span className="stat-label">Total:</span>
-                  <span className="stat-value">{totalCount}</span>
+                <div className="summary-card">
+                  <span className="summary-label">Total</span>
+                  <strong>{totalCount}</strong>
                 </div>
-                {lastUpdate && (
-                  <div className="stat">
-                    <span className="stat-label">Updated:</span>
-                    <span className="stat-value">
-                      {lastUpdate.toLocaleTimeString()}
-                    </span>
+                <div className="summary-card">
+                  <span className="summary-label">Updated</span>
+                  <strong>{lastUpdate ? lastUpdate.toLocaleTimeString() : '—'}</strong>
+                </div>
+              </div>
+
+              <div className="tracking-focus">
+                <div className="focus-avatar" aria-hidden="true">
+                  {activeSatellite ? activeSatellite.name.charAt(0).toUpperCase() : 'S'}
+                </div>
+                <div>
+                  <div className="focus-label">Closest pass</div>
+                  <div className="focus-name">
+                    {activeSatellite ? activeSatellite.name : 'Awaiting signal'}
                   </div>
-                )}
+                </div>
               </div>
 
               <div className="satellites-list">
-                {visiblePositions.map((sat) => (
-                  <SatelliteItem key={sat.id} {...sat} />
+                {visiblePositions.map((sat, index) => (
+                  <SatelliteItem
+                    key={sat.id}
+                    {...sat}
+                    highlighted={index === 0}
+                  />
                 ))}
               </div>
 
               {hiddenCount > 0 && (
                 <div className="more-satellites">
-                  +{hiddenCount} more satellites
+                  +{hiddenCount} more satellites in this orbital window
                 </div>
               )}
 
               {lastTleRefresh && (
                 <div className="refresh-info">
-                  TLE data refreshed: {lastTleRefresh.toLocaleTimeString()}
+                  TLE refreshed: {lastTleRefresh.toLocaleTimeString()}
                 </div>
               )}
             </>
