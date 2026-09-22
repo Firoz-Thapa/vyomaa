@@ -15,7 +15,7 @@ export default function Hero() {
         </h1>
         <p className="hero-sub">
           Comprehensive ground station dashboard providing real-time satellite tracking, precise pass predictions,
-          and advanced orbital telemetry. Powered by SGP4 algorithms and CelesTrak data, SkyGrid delivers mission-critical
+          and advanced orbital telemetry. Powered by SGP4 algorithms and CelesTrak data, Vyoma delivers mission-critical
           intelligence for engineers, researchers, and space operations teams worldwide. Monitor over 8,000 active satellites
           with sub-second accuracy and automated alerting systems.
         </p>

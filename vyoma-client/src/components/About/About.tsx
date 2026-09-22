@@ -5,15 +5,15 @@ export default function About() {
     <section className="about-section" id="about">
       <div className="about-inner">
         <div className="about-content">
-          <div className="section-tag">About SkyGrid</div>
+          <div className="section-tag">About Vyoma</div>
           <h2 className="section-title">Empowering Satellite Operations</h2>
           <p className="section-sub">
-            SkyGrid is a comprehensive platform designed for real-time satellite tracking and orbital intelligence.
+            Vyoma is a comprehensive platform designed for real-time satellite tracking and orbital intelligence.
             Built by aerospace engineers and software developers, our mission is to democratize access to satellite data
             for researchers, engineers, and space enthusiasts worldwide.
           </p>
           <p className="section-sub">
-            Leveraging advanced orbital mechanics algorithms like SGP4 propagation, SkyGrid provides accurate,
+            Leveraging advanced orbital mechanics algorithms like SGP4 propagation, Vyoma provides accurate,
             real-time tracking of over 8,000 active satellites. Our platform offers pass predictions, telemetry
             visualization, and automated alerts to keep you informed about satellite activities.
           </p>

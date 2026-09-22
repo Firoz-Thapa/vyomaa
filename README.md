@@ -1,6 +1,6 @@
-# SkyGrid
+# Vyoma
 
-SkyGrid is a satellite tracking web app built with a React/TypeScript frontend and an ASP.NET Core API. The current app presents a polished landing/dashboard experience with live satellite position visualization powered by CelesTrak TLE data and `satellite.js` propagation in the browser.
+Vyoma is a satellite tracking web app built with a React/TypeScript frontend and an ASP.NET Core API. The current app presents a polished landing/dashboard experience with live satellite position visualization powered by CelesTrak TLE data and `satellite.js` propagation in the browser.
 
 The backend currently provides a foundation for storing satellite, pass, location, and user data with Entity Framework Core and PostgreSQL.
 
@@ -35,7 +35,7 @@ The backend currently provides a foundation for storing satellite, pass, locatio
 ## Project Structure
 
 ```text
-SkyGrid/
+Vyoma/
 |-- skygrid-client/              # React TypeScript frontend
 |   |-- src/
 |   |   |-- components/          # UI sections and visual components

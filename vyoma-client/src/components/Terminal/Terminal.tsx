@@ -12,7 +12,7 @@ export default function Terminal() {
           <div className="term-dot td1" />
           <div className="term-dot td2" />
           <div className="term-dot td3" />
-          <span className="term-title">SkyGrid API — v1.0</span>
+          <span className="term-title">Vyoma API — v1.0</span>
         </div>
         <div className="term-body">
           <p className="term-line tc-muted">{'// Get all active satellites'}</p>

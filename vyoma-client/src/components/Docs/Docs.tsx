@@ -33,7 +33,7 @@ export default function Docs() {
       <div className="docs-inner">
         <div className="docs-intro">
           <div className="section-tag">Documentation</div>
-          <h2 id="docs-title">Build against SkyGrid without guesswork</h2>
+          <h2 id="docs-title">Build against Vyoma without guesswork</h2>
           <p>
             Start with the live satellite catalog, propagate positions with the
             same SGP4 flow used by the dashboard, then query pass predictions
