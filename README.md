@@ -36,7 +36,7 @@ The backend currently provides a foundation for storing satellite, pass, locatio
 
 ```text
 Vyoma/
-|-- vyoma-client/               # React TypeScript frontend
+|-- skygrid-client/              # React TypeScript frontend
 |   |-- src/
 |   |   |-- components/          # UI sections and visual components
 |   |   |-- hooks/               # React hooks
@@ -45,14 +45,14 @@ Vyoma/
 |   |   `-- styles/              # Shared styling
 |   |-- package.json
 |   `-- vite.config.ts
-|-- vyoma.API/                  # ASP.NET Core backend
+|-- SkyGrid.API/                 # ASP.NET Core backend
 |   |-- Controllers/             # API controllers
 |   |-- Migrations/              # EF Core migrations
 |   |-- Models/                  # Entity models and DbContext
 |   |-- Program.cs
 |   `-- vyoma.API.csproj
 |-- README.md
-`-- Vyoma.slnx
+`-- SkyGrid.slnx
 ```
 
 ## Prerequisites
