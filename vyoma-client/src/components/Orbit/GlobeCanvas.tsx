@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import type { ReactElement } from 'react';
 import type { SatellitePosition } from '../../services/orbitPropagator';
 import './Orbit.css';
@@ -76,8 +76,6 @@ export default function GlobeCanvas({
     positionsRef.current = positions;
     sortedSatellitesRef.current = [...positions].sort((a, b) => b.alt - a.alt);
   }, [positions]);
-
-  const [isReady] = useState(true);
 
   const drawFrame = useMemo(
     () => {
@@ -331,7 +329,6 @@ export default function GlobeCanvas({
   return (
     <div className="globe-canvas-container">
       <canvas ref={canvasRef} aria-label="Satellite globe visualization" />
-      {!isReady && <div className="globe-loading">Loading globe…</div>}
     </div>
   );
 }

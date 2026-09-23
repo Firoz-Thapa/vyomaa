@@ -12,11 +12,6 @@ export interface SatellitePosition {
   velocity: number;
 }
 
-export interface PropagationError extends Error {
-  satelliteId?: string;
-  reason: string;
-}
-
 /**
  * Propagate a single satellite's position at a given date
  * @param tle - TLE data from CelesTrak
@@ -101,34 +96,5 @@ export function propagateAll(
   }
 
   return positions;
-}
-
-/**
- * Propagate satellites and filter by visibility (above horizon for observer)
- * @param tles - Array of TLE data
- * @param date - Date/time for propagation
- * @param observerLat - Observer latitude in degrees (-90 to 90)
- * @param observerLng - Observer longitude in degrees (-180 to 180)
- * @param minElevation - Minimum elevation angle in degrees (default 0)
- * @returns SatellitePosition[] - Visible satellite positions
- */
-export function propagateVisible(
-  tles: TLEData[],
-  date: Date,
-  observerLat: number,
-  observerLng: number,
-  minElevation: number = 0,
-): SatellitePosition[] {
-  const positions = propagateAll(tles, date);
-
-  return positions.filter((position) => {
-    const deltaLat = position.lat - observerLat;
-    const deltaLng = position.lng - observerLng;
-
-    const distanceDegrees = Math.sqrt(deltaLat ** 2 + deltaLng ** 2);
-    const elevationAngle = 90 - distanceDegrees; // Rough approximation
-
-    return elevationAngle >= minElevation;
-  });
 }
 
