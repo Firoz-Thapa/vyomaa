@@ -3,7 +3,6 @@ import type { TLEData } from './celestrakService';
 export interface TLELines {
   line1: string;
   line2: string;
-  satelliteName: string;
 }
 
 /**
@@ -35,13 +34,12 @@ function calculateChecksum(line: string): number {
   return sum % 10;
 }
 
-export function buildTleLine1(tle: TLEData): string {
+function buildTleLine1(tle: TLEData): string {
   // Extract satellite number (last 5 digits of NORAD_CAT_ID)
   const satNum = String(tle.NORAD_CAT_ID).padStart(5, ' ');
 
   // Classification (U = unclassified, C = classified, S = secret)
-  const classification =
-    tle.CLASSIFICATION_TYPE === 'U' ? 'U' : 'U'; // Default to unclassified
+  const classification = 'U';
 
   const objectIdParts = tle.OBJECT_ID.match(/(\d{4})-(\d{3})([A-Z])/);
   let intlDes = '00001A';
@@ -98,7 +96,7 @@ export function buildTleLine1(tle: TLEData): string {
   return line1;
 }
 
-export function buildTleLine2(tle: TLEData): string {
+function buildTleLine2(tle: TLEData): string {
   const satNum = String(tle.NORAD_CAT_ID).padStart(5, ' ');
   const inclination = String(tle.INCLINATION).padStart(8, ' ').substring(0, 8);
   const raOfAscNode = String(tle.RA_OF_ASC_NODE)
@@ -132,6 +130,5 @@ export function buildTleLines(tle: TLEData): TLELines {
   return {
     line1: buildTleLine1(tle),
     line2: buildTleLine2(tle),
-    satelliteName: tle.OBJECT_NAME,
   };
 }

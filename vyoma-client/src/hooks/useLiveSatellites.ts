@@ -35,9 +35,6 @@ export function useLiveSatellites(
   const [lastTleRefresh, setLastTleRefresh] = useState<Date | null>(null);
 
   const tleDataRef = useRef<TLEData[]>([]);
-  const tleRefreshIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const propagationIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
   const refreshTleData = useCallback(async (): Promise<void> => {
     try {
       setError(null);
@@ -105,41 +102,26 @@ export function useLiveSatellites(
   }, [group, refreshTleData]);
 
   useEffect(() => {
-    tleRefreshIntervalRef.current = setInterval(() => {
+    const interval = setInterval(() => {
       refreshTleData();
     }, refreshTleAfterMs);
 
     return () => {
-      if (tleRefreshIntervalRef.current !== null) {
-        clearInterval(tleRefreshIntervalRef.current);
-      }
+      clearInterval(interval);
     };
   }, [refreshTleAfterMs, refreshTleData]);
 
   useEffect(() => {
     propagatePositions();
 
-    propagationIntervalRef.current = setInterval(() => {
+    const interval = setInterval(() => {
       propagatePositions();
     }, updateIntervalMs);
 
     return () => {
-      if (propagationIntervalRef.current !== null) {
-        clearInterval(propagationIntervalRef.current);
-      }
+      clearInterval(interval);
     };
   }, [updateIntervalMs, propagatePositions]);
-
-  useEffect(() => {
-    return () => {
-      if (tleRefreshIntervalRef.current !== null) {
-        clearInterval(tleRefreshIntervalRef.current);
-      }
-      if (propagationIntervalRef.current !== null) {
-        clearInterval(propagationIntervalRef.current);
-      }
-    };
-  }, []);
 
   return {
     positions,
