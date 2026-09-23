@@ -36,7 +36,7 @@ The backend currently provides a foundation for storing satellite, pass, locatio
 
 ```text
 Vyoma/
-|-- skygrid-client/              # React TypeScript frontend
+|-- vyoma-client/               # React TypeScript frontend
 |   |-- src/
 |   |   |-- components/          # UI sections and visual components
 |   |   |-- hooks/               # React hooks
@@ -45,14 +45,14 @@ Vyoma/
 |   |   `-- styles/              # Shared styling
 |   |-- package.json
 |   `-- vite.config.ts
-|-- SkyGrid.API/                 # ASP.NET Core backend
+|-- vyoma.API/                  # ASP.NET Core backend
 |   |-- Controllers/             # API controllers
 |   |-- Migrations/              # EF Core migrations
 |   |-- Models/                  # Entity models and DbContext
 |   |-- Program.cs
-|   `-- SkyGrid.API.csproj
+|   `-- vyoma.API.csproj
 |-- README.md
-`-- SkyGrid.slnx
+`-- Vyoma.slnx
 ```
 
 ## Prerequisites
@@ -67,20 +67,20 @@ Vyoma/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/skygrid.git
-cd skygrid
+git clone https://github.com/yourusername/vyoma.git
+cd vyoma
 ```
 
 ### 2. Configure the backend
 
-Update the PostgreSQL connection string in `SkyGrid.API/appsettings.json` or use user secrets for local development.
+Update the PostgreSQL connection string in `vyoma.API/appsettings.json` or use user secrets for local development.
 
 Example connection string:
 
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Database=skygrid;Username=postgres;Password=yourpassword"
+    "DefaultConnection": "Host=localhost;Database=vyoma;Username=postgres;Password=yourpassword"
   }
 }
 ```
@@ -88,18 +88,18 @@ Example connection string:
 Then run the API:
 
 ```bash
-cd SkyGrid.API
+cd vyoma.API
 dotnet restore
 dotnet ef database update
 dotnet run
 ```
 
-The API will use the ports configured in `SkyGrid.API/Properties/launchSettings.json`.
+The API will use the ports configured in `vyoma.API/Properties/launchSettings.json`.
 
 ### 3. Run the frontend
 
 ```bash
-cd skygrid-client
+cd vyoma-client
 npm install
 npm run start
 ```
@@ -188,14 +188,14 @@ The backend currently stores satellite-related entities but does not yet proxy C
 ### Backend
 
 ```bash
-cd SkyGrid.API
+cd vyoma.API
 dotnet publish -c Release
 ```
 
 ### Frontend
 
 ```bash
-cd skygrid-client
+cd vyoma-client
 npm run build
 ```
 
