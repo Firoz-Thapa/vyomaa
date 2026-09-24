@@ -1,6 +1,11 @@
 import './Navbar.css';
 
-export default function Navbar() {
+type NavbarProps = {
+  theme: 'light' | 'dark';
+  onToggleTheme: () => void;
+};
+
+export default function Navbar({ theme, onToggleTheme }: NavbarProps) {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -12,7 +17,21 @@ export default function Navbar() {
         <li><a href="#satellites">Satellites</a></li>
         <li><a href="#docs">Docs</a></li>
       </ul>
-      <button className="navbar-cta">Launch App</button>
+
+      <div className="navbar-actions">
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={onToggleTheme}
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+        >
+          <span className="theme-toggle-icon" aria-hidden="true">
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </span>
+          <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
+        </button>
+        <button className="navbar-cta">Launch App</button>
+      </div>
     </nav>
   );
 }
