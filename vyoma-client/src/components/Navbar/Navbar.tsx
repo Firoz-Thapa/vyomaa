@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        Sky<span>Grid</span>
+        <span>VYOMA</span>
       </div>
       <ul className="navbar-links">
         <li><a href="#features">Features</a></li>
