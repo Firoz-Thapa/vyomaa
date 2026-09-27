@@ -1,3 +1,6 @@
 <Solution>
+  <Folder Name="/vyoma.API/">
+    <Project Path="vyoma.API/SkyGrid.API.csproj" />
+  </Folder>
   <Project Path="SkyGrid.API/SkyGrid.API.csproj" />
 </Solution>

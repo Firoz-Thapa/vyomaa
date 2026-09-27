@@ -8,7 +8,7 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--border);
-  background: rgba(7, 17, 29, 0.72);
+  background: var(--navbar-bg);
   backdrop-filter: blur(12px);
 }
 
@@ -63,7 +63,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--control-bg);
   border: 1px solid var(--border);
   color: var(--txt);
   padding: 0.6rem 0.9rem;

@@ -19,21 +19,22 @@
 }
 
 .terminal {
-  background: #050810;
-  border: 1px solid rgba(0, 212, 255, 0.15);
+  background: var(--terminal-bg);
+  border: 1px solid var(--border);
   font-family: var(--mono);
   font-size: 0.82rem;
   border-radius: 4px;
   overflow: hidden;
+  color: var(--terminal-txt);
 }
 
 .term-bar {
-  background: #0d1526;
+  background: var(--terminal-header);
   padding: 0.75rem 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+  border-bottom: 1px solid var(--border);
 }
 
 .term-dot {
@@ -65,7 +66,7 @@
 .tc-green  { color: #00ff88; }
 .tc-blue   { color: #00d4ff; }
 .tc-orange { color: #ff6b35; }
-.tc-muted  { color: #6b8aad; }
+.tc-muted  { color: var(--txt2); }
 
 .cursor {
   display: inline-block;

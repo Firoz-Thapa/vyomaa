@@ -2,9 +2,9 @@
   position: relative;
   z-index: 1;
   padding: 5rem 2rem;
-  background: rgba(5, 8, 16, 0.72);
-  border-top: 1px solid rgba(0, 212, 255, 0.12);
-  border-bottom: 1px solid rgba(0, 212, 255, 0.12);
+  background: var(--c2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   scroll-margin-top: 86px;
 }
 
@@ -46,7 +46,7 @@
   min-height: 42px;
   padding: 0 1rem;
   color: var(--acc);
-  border: 1px solid rgba(0, 212, 255, 0.3);
+  border: 1px solid var(--border);
   text-decoration: none;
   font-family: var(--mono);
   font-size: 0.72rem;
@@ -69,18 +69,18 @@
 .docs-secondary-link:hover {
   color: var(--acc2);
   border-color: var(--acc2);
-  background: rgba(0, 255, 136, 0.06);
+  background: var(--c3);
 }
 
 .docs-content {
   display: grid;
   gap: 1px;
-  background: rgba(0, 212, 255, 0.12);
-  border: 1px solid rgba(0, 212, 255, 0.12);
+  background: var(--border);
+  border: 1px solid var(--border);
 }
 
 .docs-block {
-  background: rgba(10, 14, 26, 0.96);
+  background: var(--bg-solid);
   padding: 1.5rem;
 }
 
