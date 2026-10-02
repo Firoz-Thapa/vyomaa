@@ -68,15 +68,6 @@
 .tc-orange { color: #ff6b35; }
 .tc-muted  { color: var(--txt2); }
 
-.cursor {
-  display: inline-block;
-  width: 8px;
-  height: 14px;
-  background: var(--acc);
-  animation: blink 1s step-end infinite;
-  vertical-align: text-bottom;
-}
-
 @keyframes blink {
   50% { opacity: 0; }
 }

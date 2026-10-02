@@ -41,7 +41,6 @@ export default function Terminal() {
           <p className="term-line">&nbsp;&nbsp;<span className="tc-blue">"longitude"</span>: <span className="tc-orange">25.41</span>,</p>
           <p className="term-line">&nbsp;&nbsp;<span className="tc-blue">"altitudeKm"</span>: <span className="tc-orange">408.3</span>,</p>
           <p className="term-line">&nbsp;&nbsp;<span className="tc-blue">"velocityKms"</span>: <span className="tc-orange">7.66</span></p>
-          <p className="term-line"><span className="tc-muted">{'}'}</span> <span className="cursor" /></p>
         </div>
       </div>
     </section>
