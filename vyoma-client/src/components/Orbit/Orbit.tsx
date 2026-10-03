@@ -77,11 +77,6 @@ export default function Orbit(): React.JSX.Element {
       </div>
       <div className="orbit-info">
         <div className="section-tag">Technology</div>
-        <h2>
-          Production-grade
-          <br />
-          full stack
-        </h2>
         <p>
           Built with modern, enterprise-proven technologies. The same stack that
           powers real-world satellite operations software.
