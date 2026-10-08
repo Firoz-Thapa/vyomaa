@@ -1,64 +1,63 @@
-# Vyoma
+﻿# Vyoma
 
-Vyoma is a satellite tracking web app built with a React/TypeScript frontend and an ASP.NET Core API. The current app presents a polished landing/dashboard experience with live satellite position visualization powered by CelesTrak TLE data and `satellite.js` propagation in the browser.
+Vyoma is a satellite tracking and orbital awareness application built with a React + TypeScript frontend and an ASP.NET Core backend. The project is focused on visualizing satellite motion, exploring pass predictions, and laying the foundation for a broader mission-aware tracking platform.
 
-The backend currently provides a foundation for storing satellite, pass, location, and user data with Entity Framework Core and PostgreSQL.
+This repository is currently a full-stack prototype: the frontend delivers a polished landing experience and orbit-focused UI, while the backend provides a REST API for managing satellite records and data persistence.
 
-## Current Features
+## Current Status
 
-- **Live satellite visualization** using CelesTrak TLE data and SGP4 propagation through `satellite.js`
-- **Interactive globe canvas** with animated satellite markers
-- **Satellite list and telemetry display** including latitude, longitude, altitude, and velocity
-- **Fallback mock satellite data** when CelesTrak is unavailable during development
-- **ASP.NET Core REST API** with satellite list, detail, and create endpoints
-- **PostgreSQL persistence** through Entity Framework Core migrations
-- **Modern React frontend** built with Vite and TypeScript
+The codebase is actively evolving, but the current implementation is best described as a working frontend prototype plus an API foundation. The product direction is clearly Vyoma, even though a few legacy SkyGrid names remain in older project and namespace references.
 
 ## Tech Stack
 
 ### Frontend
 
-- React
+- React 19
 - TypeScript
 - Vite
 - satellite.js
-- CSS modules/files organized by component
+- CSS-based component styling
 
 ### Backend
 
 - ASP.NET Core
 - Entity Framework Core
 - PostgreSQL
+- Npgsql
 - Serilog
-- OpenAPI in development
+- OpenAPI support in development mode
 
-## Project Structure
+## Repository Structure
 
 ```text
 Vyoma/
-|-- skygrid-client/              # React TypeScript frontend
-|   |-- src/
-|   |   |-- components/          # UI sections and visual components
-|   |   |-- hooks/               # React hooks
-|   |   |-- pages/               # Page composition
-|   |   |-- services/            # CelesTrak + orbit propagation logic
-|   |   `-- styles/              # Shared styling
-|   |-- package.json
-|   `-- vite.config.ts
-|-- SkyGrid.API/                 # ASP.NET Core backend
-|   |-- Controllers/             # API controllers
-|   |-- Migrations/              # EF Core migrations
-|   |-- Models/                  # Entity models and DbContext
-|   |-- Program.cs
-|   `-- vyoma.API.csproj
-|-- README.md
-`-- SkyGrid.slnx
+├── README.md
+├── Vyoma.slnx
+├── vyoma-client/                  # Vite + React frontend
+│   ├── package.json
+│   ├── vite.config.ts
+│   └── src/
+│       ├── App.tsx
+│       ├── components/
+│       ├── pages/
+│       ├── hooks/
+│       └── styles/
+├── vyoma.API/                     # ASP.NET Core API
+│   ├── Controllers/
+│   ├── Data/
+│   ├── Models/
+│   ├── Program.cs
+│   ├── appsettings.json
+│   └── SkyGrid.API.csproj
+└── .gitignore
 ```
+
+Note: some legacy `SkyGrid` names still appear in the .NET project file and namespace references. The product identity and active repository structure are Vyoma-based, but those legacy names have not been fully cleaned up yet.
 
 ## Prerequisites
 
-- .NET SDK compatible with the API target framework
-- Node.js 18+
+- .NET SDK compatible with the API project
+- Node.js 18 or later
 - PostgreSQL 13+
 - Git
 
@@ -67,20 +66,20 @@ Vyoma/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/vyoma.git
-cd vyoma
+git clone https://github.com/yourusername/Vyoma.git
+cd Vyoma
 ```
 
 ### 2. Configure the backend
 
-Update the PostgreSQL connection string in `vyoma.API/appsettings.json` or use user secrets for local development.
+Update the PostgreSQL connection string in `vyoma.API/appsettings.json` or use local user secrets for development.
 
-Example connection string:
+Example:
 
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Database=vyoma;Username=postgres;Password=yourpassword"
+    "DefaultConnection": "Host=localhost;Database=vyoma;Username=postgres;Password=yourpassword;"
   }
 }
 ```
@@ -90,13 +89,10 @@ Then run the API:
 ```bash
 cd vyoma.API
 dotnet restore
-dotnet ef database update
 dotnet run
 ```
 
-The API will use the ports configured in `vyoma.API/Properties/launchSettings.json`.
-
-### 3. Run the frontend
+### 3. Start the frontend
 
 ```bash
 cd vyoma-client
@@ -104,7 +100,7 @@ npm install
 npm run start
 ```
 
-The frontend is served by Vite, usually at:
+The frontend is served by Vite, typically at:
 
 ```text
 http://localhost:5173
@@ -119,7 +115,9 @@ npm run lint      # Run ESLint
 npm run preview   # Preview the production build
 ```
 
-## Current API Endpoints
+## Current API Surface
+
+The ASP.NET API currently exposes a small set of satellite endpoints.
 
 ### Get active satellites
 
@@ -127,26 +125,24 @@ npm run preview   # Preview the production build
 GET /api/satellites
 ```
 
-Returns active satellites ordered by name.
+Returns active satellite records ordered by name.
 
-### Get satellite by NORAD ID
+### Get a satellite by NORAD ID
 
 ```http
 GET /api/satellites/{noradId}
 ```
 
-Returns a single satellite by NORAD catalog ID.
+Returns a single satellite entry if it exists.
 
-### Create satellite
+### Create a satellite
 
 ```http
 POST /api/satellites
 Content-Type: application/json
 ```
 
-Creates a new satellite record.
-
-Example request:
+Example payload:
 
 ```json
 {
@@ -161,27 +157,36 @@ Example request:
 
 ## Data Flow
 
-The frontend currently fetches satellite group data directly from CelesTrak:
+The current front end uses orbital logic and TLE-driven data from CelesTrak in the browser:
 
 ```text
-React app -> CelesTrak API -> satellite.js propagation -> globe/list UI
+React app -> CelesTrak TLE data -> satellite.js -> orbital UI rendering
 ```
 
-If CelesTrak is unavailable, the client falls back to generated mock data so the interface remains usable during development.
+The backend currently persists satellite-related records in PostgreSQL and exposes them through the ASP.NET API. It does not yet fully centralize orbit prediction or live pass calculations as backend services.
 
-The backend currently stores satellite-related entities but does not yet proxy CelesTrak, calculate live positions, or expose pass prediction endpoints.
+## Feature Direction
 
-## Recommended Next Improvements
+The landing page and feature descriptions indicate the intended product scope:
 
-- Add backend CelesTrak sync and cache TLE data in PostgreSQL
-- Add `/api/satellites/{noradId}/position`
-- Add `/api/passes/predict`
-- Add location CRUD endpoints
-- Replace direct EF entity POST bodies with request/response DTOs
-- Add validation and duplicate NORAD ID handling
-- Add backend and frontend tests
-- Add GitHub Actions for build, lint, and test checks
-- Add a real dashboard screenshot to replace placeholder documentation imagery
+- Live tracking
+- Pass prediction
+- Telemetry charts
+- Email alerts
+- Pass history
+- User accounts
+
+These are part of the product vision, but the current repo is still in a staged implementation where the frontend and API are being built out together.
+
+## Recommended Next Steps
+
+- Clean up remaining legacy `SkyGrid` naming in project and namespace references
+- Add stronger backend validation for satellite records
+- Introduce DTOs for POST request and response handling
+- Add dedicated pass prediction and position endpoints
+- Add CelesTrak sync and persistence strategy for TLE data
+- Add automated tests for both frontend and backend
+- Add CI workflow checks for build and lint validation
 
 ## Building for Production
 
@@ -201,12 +206,12 @@ npm run build
 
 ## Data Sources
 
-- [CelesTrak](https://celestrak.org/) for satellite TLE data
+- [CelesTrak](https://celestrak.org/) for public TLE data
 - [satellite.js](https://github.com/shashwatak/satellite-js) for orbital propagation
 
 ## License
 
-This project is intended to be open source. Add a `LICENSE` file if you plan to publish or distribute it.
+This repository does not currently include a license file. If you plan to publish or distribute the project, add a license before doing so.
 
 ---
 
