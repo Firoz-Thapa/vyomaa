@@ -28,34 +28,6 @@ function buildProjectedPosition(
   return { x, y, z };
 }
 
-function drawGridToOffscreen(
-  canvas: HTMLCanvasElement,
-  width: number,
-  height: number,
-  globeRadius: number,
-): void {
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
-
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-  const centerX = width / 2;
-  const centerY = height / 2;
-
-  ctx.strokeStyle = 'rgba(0, 212, 255, 0.15)';
-  ctx.lineWidth = 1;
-
-  // Latitude lines only (horizontal ellipses - these don't rotate)
-  for (let lat = -60; lat <= 60; lat += 30) {
-    const latRadius = globeRadius * Math.cos(toRadians(lat));
-    ctx.beginPath();
-    ctx.ellipse(centerX, centerY, latRadius, globeRadius * 0.16 + 1, 0, 0, Math.PI * 2);
-    ctx.stroke();
-  }
-}
 
 export default function GlobeCanvas({
   positions,
@@ -67,7 +39,6 @@ export default function GlobeCanvas({
   const draggingRef = useRef<boolean>(false);
   const lastXRef = useRef<number>(0);
   const positionsRef = useRef<SatellitePosition[]>(positions);
-  const offscreenCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const gradientsRef = useRef<{ [key: string]: CanvasGradient }>({});
   const lastCanvasSizeRef = useRef<{ width: number; height: number } | null>(null);
   const sortedSatellitesRef = useRef<SatellitePosition[]>([]);
@@ -174,11 +145,6 @@ export default function GlobeCanvas({
         ctx.arc(centerX, centerY, globeRadius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Draw static latitude grid from offscreen canvas
-        if (offscreenCanvasRef.current) {
-          ctx.drawImage(offscreenCanvasRef.current, 0, 0);
-        }
-
         // Draw rotating longitude lines
         ctx.strokeStyle = 'rgba(0, 212, 255, 0.15)';
         ctx.lineWidth = 1;
@@ -273,14 +239,6 @@ export default function GlobeCanvas({
     }
 
     const canvas = canvasRef.current;
-
-    // Initialize offscreen canvas for static grid
-    if (!offscreenCanvasRef.current) {
-      offscreenCanvasRef.current = document.createElement('canvas');
-    }
-
-    const globeRadius = Math.min(width, height) / 2 - 18;
-    drawGridToOffscreen(offscreenCanvasRef.current, width, height, globeRadius);
 
     let animationFrame = 0;
 
