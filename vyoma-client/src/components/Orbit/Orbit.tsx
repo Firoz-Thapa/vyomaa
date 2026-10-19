@@ -3,11 +3,6 @@ import './Orbit.css';
 import GlobeCanvas from './GlobeCanvas';
 import { useLiveSatellites } from '../../hooks/useLiveSatellites';
 
-const TECH_TAGS = [
-  'ASP.NET Core 10', 'React 19', 'TypeScript', 'PostgreSQL',
-  'EF Core 10', 'Leaflet.js', 'SGP4', 'Docker', 'GitHub Actions', 'Azure',
-];
-
 interface SatelliteItemProps {
   id: string;
   name: string;
@@ -76,19 +71,6 @@ export default function Orbit(): React.JSX.Element {
         <GlobeCanvas positions={positions} />
       </div>
       <div className="orbit-info">
-        <div className="section-tag">Technology</div>
-        <p>
-          Built with modern, enterprise-proven technologies. The same stack that
-          powers real-world satellite operations software.
-        </p>
-        <div className="tech-tags">
-          {TECH_TAGS.map((t) => (
-            <span className="tag" key={t}>
-              {t}
-            </span>
-          ))}
-        </div>
-
         <div className="satellite-tracking">
           <div className="tracking-header">
             <div className="tracking-title-group">
